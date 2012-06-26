@@ -85,7 +85,7 @@
   (compiler/emit-str (compiler/analyze {:ns (@compiler/namespaces 'cljs.core)
                                         :uses #{'cljs.core}
                                         :context :expr
-                                        :locals '{}}
+                                        :locals {}}
                                        form)))
 
 (create-ns 'lodjur.client)
