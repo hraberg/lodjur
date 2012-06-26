@@ -89,11 +89,14 @@
                                        form)))
 
 (defn eval-cljs [cljs]
-  (js (compile-cljs (list 'lodjur.client/clj->js cljs))))
+  (js (compile-cljs (list 'lodjur.client/clj->js (walk/macroexpand-all cljs)))))
 
 (defmacro cljs [cljs]
   `(let [env# (zipmap '~(keys &env) ~(vec (keys &env)))]
      (eval-cljs (walk/postwalk-replace env# '~cljs))))
+
+(defmacro $ [& [fst & rst]]
+  (eval-cljs `(-> (js/jQuery ~fst) ~@rst)))
 
 ;; HTTP
 
