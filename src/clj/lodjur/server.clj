@@ -102,6 +102,24 @@
   `(let [env# (zipmap '~(keys &env) ~(vec (keys &env)))]
      (eval-cljs (walk/postwalk-replace env# '~cljs))))
 
+(defn compile-callback [src]
+  (eval (read-string src)))
+
+(alter-var-root #'compile-callback memoize)
+
+(defn callback [src & args]
+  (apply (compile-callback src) args))
+
+(defmacro fnc
+  ([clj]
+     (if (some '#{%} (flatten clj))
+       `(fnc [~'%] ~clj)
+       `(fnc [] ~(if (symbol? clj) (list clj) clj))))
+  ([args & clj]
+     (let [src (pr-str `(fn ~args ~@clj))]
+       `(fn ~args
+          (lodjur.client/apply-clj 'callback (cons ~src ~args))))))
+
 (defmacro $ [& expr]
   (let [expand (fn expand [x & [add-dot?]]
                  (condp some [x]
