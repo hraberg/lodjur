@@ -47,7 +47,7 @@ For distribution OSGi/RCP could reluctantly be brought into the mix, or simply b
 
 ### Name
 
-lodjur is the Swedish word for [lynx]()http://lynx.browser.org/, but that's just a lucky coincidence after picking a word at random in a [Transtromer](http://www.guardian.co.uk/books/2011/oct/06/nobel-prize-literature-tomas-transtromer) collection.
+lodjur is the Swedish word for [lynx](http://lynx.browser.org/), but that's just a lucky coincidence after picking a word to name this spike at random in a [Transtromer](http://www.guardian.co.uk/books/2011/oct/06/nobel-prize-literature-tomas-transtromer) collection.
 
 
 ## License
