@@ -38,8 +38,7 @@
 (defn goto [url]
   (async-exec #(.setUrl browser (str url))))
 
-(defn browser-fn
-  [name f]
+(defn browser-fn [name f]
   (sync-exec
    #(proxy [BrowserFunction] [browser name]
       (function [^"[Ljava.lang.Object;" args]
