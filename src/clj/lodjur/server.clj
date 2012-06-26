@@ -91,7 +91,7 @@
                                        form)))
 
 (defn eval-cljs [cljs]
-  (js (compile-cljs (list 'swtcljs.client/clj->js cljs))))
+  (js (compile-cljs (list 'lodjur.client/clj->js cljs))))
 
 (defmacro cljs [cljs]
   `(let [env# (zipmap '~(keys &env) ~(vec (keys &env)))]
