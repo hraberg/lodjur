@@ -95,8 +95,20 @@
   `(let [env# (zipmap '~(keys &env) ~(vec (keys &env)))]
      (eval-cljs (walk/postwalk-replace env# '~cljs))))
 
-(defmacro $ [& [fst & rst]]
-  `(eval-cljs (-> (js/jQuery ~fst) ~@rst)))
+(defmacro $ [& expr]
+  (let [expand (fn expand [x & [add-dot?]]
+                 (condp some [x]
+                   (every-pred
+                    symbol?
+                    (constantly add-dot?)) (symbol (str "." x))
+                    keyword? (name x)
+                    vector? (apply print-str (map expand x))
+                    x))
+        [fst & rst] (map #(if (list? %)
+                            (cons (expand (first %) :add-dot)
+                                  (map expand (rest %)))
+                            (expand % :add-dot)) expr)]
+    `(cljs (-> (js/jQuery ~fst) ~@rst))))
 
 ;; HTTP
 

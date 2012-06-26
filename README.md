@@ -9,13 +9,14 @@ ClojureScript isn't the real goal, but this area seemed like a good time to expl
 
 In the unlikely event you want to run it, pick your SWT dev platform (see `project.clj`) and run `lein deps`, compile `lodjur.server` and run `(start)`. You should get a SWT (WebKit) browser running in the same process as your REPL (usually Swank).
 
-The macro `js` evaluates JavaScript strings, while the macro `cljs` evaluates ClojureScript forms:
+The macro `js` evaluates JavaScript strings, while the macro `cljs` evaluates ClojureScript forms. `$` is a convenience macro for jQuery:
 
     (js "$('h2').text('SWT & JS')")
-    (cljs (.text (js/$ "h2") "SWT & Clojure"))
+    (cljs (-> (js/$ "h2") (.text "SWT & Clojure")))
+    ($ :h2 (text "SWT & jQuery"))
 
 Inside the browser there's a "native" function `evalClojure` [registered](http://git.eclipse.org/c/platform/eclipse.platform.swt.git/tree/examples/org.eclipse.swt.snippets/src/org/eclipse/swt/snippets/Snippet307.java), which allows to evaluate real Clojure (as strings) on the host from JavaScript.
-
+xo
 All different calls currently return JSON for simplicity (not everything in the browser is Clojure). There's no AJAX, but Jetty is in there somewhere to serve resources.
 
 For distribution OSGi/RCP could reluctantly be brought into the mix, or simply build platform specific uberjars like this:
