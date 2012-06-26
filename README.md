@@ -15,7 +15,7 @@ The macro `js` evaluates JavaScript strings, while the macro `cljs` evaluates Cl
     (cljs (-> (js/$ "h2") (.text "SWT & Clojure")))
     ($ :h2 (text "SWT & jQuery"))
 
-Inside the browser there are two "native" functions, `evalClojure` and `applyClojure`, [registered](http://git.eclipse.org/c/platform/eclipse.platform.swt.git/tree/examples/org.eclipse.swt.snippets/src/org/eclipse/swt/snippets/Snippet307.java), which allows to evaluate real Clojure on the host from JavaScript:
+Inside the browser there are two "native" functions [registered](http://git.eclipse.org/c/platform/eclipse.platform.swt.git/tree/examples/org.eclipse.swt.snippets/src/org/eclipse/swt/snippets/Snippet307.java), `evalClojure` and `applyClojure`, which allows to evaluate real Clojure on the host from JavaScript:
 
     (cljs (js/alert (js/evalClojure "(System/getProperty \"java.version\")")))
     ; displays an alert with the JVM Clojure version in the browser.
