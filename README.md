@@ -15,8 +15,12 @@ The macro `js` evaluates JavaScript strings, while the macro `cljs` evaluates Cl
     (cljs (-> (js/$ "h2") (.text "SWT & Clojure")))
     ($ :h2 (text "SWT & jQuery"))
 
-Inside the browser there's a "native" function `evalClojure` [registered](http://git.eclipse.org/c/platform/eclipse.platform.swt.git/tree/examples/org.eclipse.swt.snippets/src/org/eclipse/swt/snippets/Snippet307.java), which allows to evaluate real Clojure (as strings) on the host from JavaScript.
-xo
+Inside the browser there's a "native" function `evalClojure` [registered](http://git.eclipse.org/c/platform/eclipse.platform.swt.git/tree/examples/org.eclipse.swt.snippets/src/org/eclipse/swt/snippets/Snippet307.java), which allows to evaluate real Clojure on the host from JavaScript:
+
+    (cljs (js/alert (js/evalClojure "(System/getProperty \"java.version\")")))
+    ; displays an alert with the JVM Clojure version in the browser.
+
+
 All different calls currently return JSON for simplicity (not everything in the browser is Clojure). There's no AJAX, but Jetty is in there somewhere to serve resources.
 
 For distribution OSGi/RCP could reluctantly be brought into the mix, or simply build platform specific uberjars like this:

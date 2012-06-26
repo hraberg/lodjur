@@ -12133,6 +12133,7 @@ cljs.core.prefers = function(a) {
 };
 var lodjur = {client:{}};
 lodjur.client.eval_clj = function(a) {
+  a = cljs.core.string_QMARK_.call(null, a) ? a : cljs.core.pr_str.call(null, a);
   return cljs.core.js__GT_clj.call(null, JSON.parse(evalClojure(a)))
 };
 lodjur.client.dbg = function(a) {

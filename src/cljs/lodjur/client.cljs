@@ -1,7 +1,8 @@
 (ns lodjur.client)
 
 (defn eval-clj [clj]
-  (js->clj (.parse js/JSON (js/evalClojure clj))))
+  (let [clj (if (string? clj) clj (pr-str clj))]
+    (js->clj (.parse js/JSON (js/evalClojure clj)))))
 
 (defn dbg [x]
   (eval-clj (pr-str (list 'println x)))

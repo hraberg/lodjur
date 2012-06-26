@@ -88,6 +88,9 @@
                                         :locals '{}}
                                        form)))
 
+(create-ns 'lodjur.client)
+(create-ns 'js)
+
 (defn eval-cljs [cljs]
   (js (compile-cljs (list 'lodjur.client/clj->js (walk/macroexpand-all cljs)))))
 
