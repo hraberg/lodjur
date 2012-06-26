@@ -39,12 +39,11 @@
   (async-exec #(.setUrl browser (str url))))
 
 (defn browser-fn
-  ([name] (browser-fn name (-> name symbol resolve)))
-  ([name f]
-     (sync-exec
-      #(proxy [BrowserFunction] [browser (string/replace name "-" "_")]
-         (function [^"[Ljava.lang.Object;" args]
-           (apply f (seq args)))))))
+  [name f]
+  (sync-exec
+   #(proxy [BrowserFunction] [browser name]
+      (function [^"[Ljava.lang.Object;" args]
+        (apply f (seq args))))))
 
 (defn show-ui []
   (def shell (doto (Shell. display)
