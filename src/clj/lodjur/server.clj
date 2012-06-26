@@ -40,7 +40,7 @@
 
 (defn browser-fn [name f]
   (sync-exec
-   #(proxy [BrowserFunction] [browser name]
+   #(proxy [BrowserFunction] [browser (str name)]
       (function [^"[Ljava.lang.Object;" args]
         (apply f (seq args))))))
 
@@ -57,6 +57,10 @@
                     (changed [e] (.setText shell (.title e)))))))
 
   (browser-fn "evalClojure" (comp generate-string eval read-string))
+  (browser-fn "applyClojure" (fn [f & args]
+                               (generate-string
+                                (apply (resolve (symbol f))
+                                       (map #(parse-string % true) args)))))
 
   (.open shell)
   (goto (str "http://localhost:" *port* "/")))

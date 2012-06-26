@@ -1,12 +1,5 @@
-(ns lodjur.client)
-
-(defn eval-clj [clj]
-  (let [clj (if (string? clj) clj (pr-str clj))]
-    (js->clj (.parse js/JSON (js/evalClojure clj)))))
-
-(defn dbg [x]
-  (eval-clj (pr-str (list 'println x)))
-  x)
+(ns lodjur.client
+  (:require [clojure.walk :as walk]))
 
 ;; from http://stackoverflow.com/a/10196356, originally from http://mmcgrana.github.com/2011/09/clojurescript-nodejs.html
 (defn clj->js [x]
@@ -22,3 +15,15 @@
                (assoc m (clj->js k) (clj->js v))) {} x))
     (coll? x) (apply array (map clj->js x))
     :else x))
+
+(defn eval-clj [clj]
+  (let [clj (if (string? clj) clj (pr-str clj))]
+    (js->clj (.parse js/JSON (js/evalClojure clj)))))
+
+(defn apply-clj [f args]
+  (let [args (map #(.stringify js/JSON (lodjur.client/clj->js %)) args)]
+    (js->clj (.parse js/JSON (apply js/applyClojure (str f) args)))))
+
+(defn dbg [x]
+  (eval-clj (pr-str (list 'println x)))
+  x)

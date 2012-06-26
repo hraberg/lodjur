@@ -12131,18 +12131,62 @@ cljs.core.get_method = function(a, b) {
 cljs.core.prefers = function(a) {
   return cljs.core._prefers.call(null, a)
 };
+var clojure = {walk:{}};
+clojure.walk.walk = function(a, b, c) {
+  return cljs.core.seq_QMARK_.call(null, c) ? b.call(null, cljs.core.doall.call(null, cljs.core.map.call(null, a, c))) : cljs.core.coll_QMARK_.call(null, c) ? b.call(null, cljs.core.into.call(null, cljs.core.empty.call(null, c), cljs.core.map.call(null, a, c))) : b.call(null, c)
+};
+clojure.walk.postwalk = function postwalk(b, c) {
+  return clojure.walk.walk.call(null, cljs.core.partial.call(null, postwalk, b), b, c)
+};
+clojure.walk.prewalk = function prewalk(b, c) {
+  return clojure.walk.walk.call(null, cljs.core.partial.call(null, prewalk, b), cljs.core.identity, b.call(null, c))
+};
+clojure.walk.keywordize_keys = function(a) {
+  var b = function(a) {
+    var b = cljs.core.nth.call(null, a, 0, null), a = cljs.core.nth.call(null, a, 1, null);
+    return cljs.core.string_QMARK_.call(null, b) ? cljs.core.PersistentVector.fromArray([cljs.core.keyword.call(null, b), a]) : cljs.core.PersistentVector.fromArray([b, a])
+  };
+  return clojure.walk.postwalk.call(null, function(a) {
+    return cljs.core.map_QMARK_.call(null, a) ? cljs.core.into.call(null, cljs.core.ObjMap.fromObject([], {}), cljs.core.map.call(null, b, a)) : a
+  }, a)
+};
+clojure.walk.stringify_keys = function(a) {
+  var b = function(a) {
+    var b = cljs.core.nth.call(null, a, 0, null), a = cljs.core.nth.call(null, a, 1, null);
+    return cljs.core.keyword_QMARK_.call(null, b) ? cljs.core.PersistentVector.fromArray([cljs.core.name.call(null, b), a]) : cljs.core.PersistentVector.fromArray([b, a])
+  };
+  return clojure.walk.postwalk.call(null, function(a) {
+    return cljs.core.map_QMARK_.call(null, a) ? cljs.core.into.call(null, cljs.core.ObjMap.fromObject([], {}), cljs.core.map.call(null, b, a)) : a
+  }, a)
+};
+clojure.walk.prewalk_replace = function(a, b) {
+  return clojure.walk.prewalk.call(null, function(b) {
+    return cljs.core.contains_QMARK_.call(null, a, b) ? a.call(null, b) : b
+  }, b)
+};
+clojure.walk.postwalk_replace = function(a, b) {
+  return clojure.walk.postwalk.call(null, function(b) {
+    return cljs.core.contains_QMARK_.call(null, a, b) ? a.call(null, b) : b
+  }, b)
+};
 var lodjur = {client:{}};
-lodjur.client.eval_clj = function(a) {
-  a = cljs.core.string_QMARK_.call(null, a) ? a : cljs.core.pr_str.call(null, a);
-  return cljs.core.js__GT_clj.call(null, JSON.parse(evalClojure(a)))
-};
-lodjur.client.dbg = function(a) {
-  lodjur.client.eval_clj.call(null, cljs.core.pr_str.call(null, cljs.core.list.call(null, "\ufdd1'println", a)));
-  return a
-};
 lodjur.client.clj__GT_js = function clj__GT_js(b) {
   return cljs.core.string_QMARK_.call(null, b) ? b : cljs.core.keyword_QMARK_.call(null, b) ? cljs.core.name.call(null, b) : cljs.core.map_QMARK_.call(null, b) ? cljs.core.reduce.call(null, function(b, d) {
     var e = cljs.core.nth.call(null, d, 0, null), f = cljs.core.nth.call(null, d, 1, null);
     return cljs.core.assoc.call(null, b, clj__GT_js.call(null, e), clj__GT_js.call(null, f))
   }, cljs.core.ObjMap.fromObject([], {}), b).strobj : cljs.core.coll_QMARK_.call(null, b) ? cljs.core.apply.call(null, cljs.core.array, cljs.core.map.call(null, clj__GT_js, b)) : b
+};
+lodjur.client.eval_clj = function(a) {
+  a = cljs.core.string_QMARK_.call(null, a) ? a : cljs.core.pr_str.call(null, a);
+  return cljs.core.js__GT_clj.call(null, JSON.parse(evalClojure(a)))
+};
+lodjur.client.apply_clj = function(a, b) {
+  var c = cljs.core.map.call(null, function(a) {
+    return JSON.stringify(lodjur.client.clj__GT_js.call(null, a))
+  }, b);
+  return cljs.core.js__GT_clj.call(null, JSON.parse(cljs.core.apply.call(null, applyClojure, "" + cljs.core.str(a), c)))
+};
+lodjur.client.dbg = function(a) {
+  lodjur.client.eval_clj.call(null, cljs.core.pr_str.call(null, cljs.core.list.call(null, "\ufdd1'println", a)));
+  return a
 };
