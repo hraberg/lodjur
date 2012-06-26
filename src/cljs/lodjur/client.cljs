@@ -24,6 +24,10 @@
   (let [args (map #(.stringify js/JSON (lodjur.client/clj->js %)) args)]
     (js->clj (.parse js/JSON (apply js/applyClojure (str f) args)))))
 
+(set! cljs.core/*print-fn* (fn [& more]
+                             (lodjur.client/apply-clj 'println more)
+                             nil))
+
 (defn dbg [x]
-  (eval-clj (pr-str (list 'println x)))
+  (println x)
   x)

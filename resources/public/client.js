@@ -12186,7 +12186,24 @@ lodjur.client.apply_clj = function(a, b) {
   }, b);
   return cljs.core.js__GT_clj.call(null, JSON.parse(cljs.core.apply.call(null, applyClojure, "" + cljs.core.str(a), c)))
 };
+cljs.core._STAR_print_fn_STAR_ = function() {
+  var a = function(a) {
+    lodjur.client.apply_clj.call(null, "\ufdd1'println", a);
+    return null
+  }, b = function(b) {
+    var d = null;
+    goog.isDef(b) && (d = cljs.core.array_seq(Array.prototype.slice.call(arguments, 0), 0));
+    return a.call(this, d)
+  };
+  b.cljs$lang$maxFixedArity = 0;
+  b.cljs$lang$applyTo = function(b) {
+    b = cljs.core.seq(b);
+    return a(b)
+  };
+  b.cljs$lang$arity$variadic = a;
+  return b
+}();
 lodjur.client.dbg = function(a) {
-  lodjur.client.eval_clj.call(null, cljs.core.pr_str.call(null, cljs.core.list.call(null, "\ufdd1'println", a)));
+  cljs.core.println.call(null, a);
   return a
 };
