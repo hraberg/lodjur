@@ -20,6 +20,10 @@ Inside the browser there's a "native" function `evalClojure` [registered](http:/
     (cljs (js/alert (js/evalClojure "(System/getProperty \"java.version\")")))
     ; displays an alert with the JVM Clojure version in the browser.
 
+    ($ :body (append "<a href='#'>Clojure")
+        (click #(lodjur.client/eval-clj '(println :click))))
+    ; clicking this link outputs ":click" in the Clojure REPL.
+
 
 All different calls currently return JSON for simplicity (not everything in the browser is Clojure). There's no AJAX, but Jetty is in there somewhere to serve resources.
 
