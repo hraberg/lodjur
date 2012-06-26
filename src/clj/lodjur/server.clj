@@ -10,7 +10,8 @@
            [org.eclipse.swt.browser Browser TitleListener BrowserFunction])
   (:require [clojure.string :as string]
             [clojure.walk :as walk]
-            [cljs.compiler :as compiler])
+            [cljs.compiler :as compiler]
+            [hiccup.core])
   (:gen-class))
 
 (def ^:dynamic *use-browser* :webkit)
@@ -120,20 +121,27 @@
        `(fn ~args
           (lodjur.client/apply-clj 'callback (cons ~src ~args))))))
 
+(defn jq-expand [x & [add-dot?]]
+  (condp some [x]
+    (every-pred
+     symbol?
+     (constantly add-dot?)) (symbol (str "." x))
+     keyword? (name x)
+     vector? (apply print-str (map jq-expand x))
+     x))
+
+(defmacro dom [dom]
+  `(hiccup.core/html ~dom))
+
 (defmacro $ [& expr]
-  (let [expand (fn expand [x & [add-dot?]]
-                 (condp some [x]
-                   (every-pred
-                    symbol?
-                    (constantly add-dot?)) (symbol (str "." x))
-                    keyword? (name x)
-                    vector? (apply print-str (map expand x))
-                    x))
-        [fst & rst] (map #(if (list? %)
-                            (cons (expand (first %) :add-dot)
-                                  (map expand (rest %)))
-                            (expand % :add-dot)) expr)]
-    `(cljs (-> (js/jQuery ~fst) ~@rst))))
+  `(let [env# (zipmap '~(keys &env) ~(vec (keys &env)))
+         [fst# & rst#] (map #(if (list? %)
+                               (cons (jq-expand (first %) :add-dot)
+                                     (map jq-expand (rest %)))
+                               (jq-expand % :add-dot))
+                            (walk/macroexpand-all
+                             (walk/postwalk-replace env# '~expr)))]
+     (eval-cljs `(-> (js/jQuery ~fst#) ~@rst#))))
 
 ;; HTTP
 

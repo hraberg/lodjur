@@ -4,6 +4,7 @@
                  [org.clojure/clojurescript "0.0-1236" :exclusions [org.apache.ant/ant]]
                  [cheshire "4.0.0"]
                  [compojure "1.0.4"]
+                 [hiccup "1.0.0"]
                  [ring/ring-jetty-adapter "1.1.1"]]
   :profiles {:dev {:dependencies [[org.eclipse.swt/org.eclipse.swt.gtk.linux.x86_64 "3.7.2"]]}
              :linux {:dependencies [[org.eclipse.swt/org.eclipse.swt.gtk.linux.x86_64 "3.7.2"]]}
