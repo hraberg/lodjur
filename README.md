@@ -11,21 +11,23 @@ In the unlikely event you want to run it, pick your SWT dev platform (see `proje
 
 The macro `js` evaluates JavaScript strings, while the macro `cljs` evaluates ClojureScript forms. `$` is a convenience macro for jQuery:
 
-    (js "$('h2').text('SWT & JS')")
-    (cljs (-> (js/$ "h2") (.text "SWT & Clojure")))
-    ($ :h2 (text "SWT & jQuery"))
+```clojure
+(js "$('h2').text('SWT & JS')")
+(cljs (-> (js/$ "h2") (.text "SWT & Clojure")))
+($ :h2 (text "SWT & jQuery"))
+```
 
 Inside the browser there are two "native" functions [registered](http://git.eclipse.org/c/platform/eclipse.platform.swt.git/tree/examples/org.eclipse.swt.snippets/src/org/eclipse/swt/snippets/Snippet307.java), `evalClojure` and `applyClojure`, which allows to evaluate real Clojure on the host from JavaScript:
 
-    (cljs (js/alert (js/evalClojure "(System/getProperty \"java.version\")")))
-    ; displays an alert with the JVM Clojure version in the browser.
+```clojure
+(cljs (js/alert (js/evalClojure "(System/getProperty \"java.version\")")))
+; displays an alert with the JVM Clojure version in the browser.
 
-    ($ "<a href=#>Clojure</a>" (appendTo :body)
-        (click (fnc (println :click))))
-    ; clicking this link outputs ":click" in the Clojure REPL.
+($ "<a href=#>Clojure</a>" (appendTo :body) (click (fnc (println :click))))
+; clicking this link outputs ":click" in the Clojure REPL.
+```
 
 `fnc` is a macro to register a Clojure callback function in ClojureScript.
-
 
 All different calls currently return JSON for simplicity (not everything in the browser is Clojure). There's no AJAX, but Jetty is in there somewhere to serve resources.
 
