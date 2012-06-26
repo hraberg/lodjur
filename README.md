@@ -20,8 +20,8 @@ Inside the browser there are two "native" functions [registered](http://git.ecli
     (cljs (js/alert (js/evalClojure "(System/getProperty \"java.version\")")))
     ; displays an alert with the JVM Clojure version in the browser.
 
-    ($ :body (append "<a href='#'>Clojure"))
-    ($ :a (click (fnc (println :click))))
+    ($ "<a href=#>Clojure</a>" (appendTo :body)
+        (click (fnc (println :click))))
     ; clicking this link outputs ":click" in the Clojure REPL.
 
 `fnc` is a macro to register a Clojure callback function in ClojureScript.
