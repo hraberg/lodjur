@@ -20,8 +20,8 @@ Inside the browser there's a "native" function `evalClojure` [registered](http:/
     (cljs (js/alert (js/evalClojure "(System/getProperty \"java.version\")")))
     ; displays an alert with the JVM Clojure version in the browser.
 
-    ($ :body (append "<a href='#'>Clojure")
-        (click #(lodjur.client/eval-clj '(println :click))))
+    ($ :body (append "<a href='#'>Clojure"))
+    ($ :a (click #(lodjur.client/eval-clj '(println :click))))
     ; clicking this link outputs ":click" in the Clojure REPL.
 
 
