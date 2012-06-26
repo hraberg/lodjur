@@ -96,7 +96,7 @@
      (eval-cljs (walk/postwalk-replace env# '~cljs))))
 
 (defmacro $ [& [fst & rst]]
-  (eval-cljs `(-> (js/jQuery ~fst) ~@rst)))
+  `(eval-cljs (-> (js/jQuery ~fst) ~@rst)))
 
 ;; HTTP
 
