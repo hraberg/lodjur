@@ -25,6 +25,9 @@ Inside the browser there are two "native" functions [registered](http://git.ecli
 
 ($ "<a href=#>Clojure</a>" (appendTo :body) (click (fnc (println :click))))
 ; clicking this link outputs ":click" in the Clojure REPL.
+
+($ [:a {:href "#"} "Hiccup"] (appendTo :body) (click (fnc (println :click))))
+; same as above, but using (Clojure-side) Hiccup
 ```
 
 `fnc` is a macro to register a Clojure callback function in ClojureScript.

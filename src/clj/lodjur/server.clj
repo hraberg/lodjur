@@ -3,15 +3,15 @@
         [compojure.core :only (defroutes GET)]
         [ring.util.response :only (redirect)]
         [compojure.route :only (resources)]
-        [ring.adapter.jetty])
+        [ring.adapter.jetty]
+        [hiccup.core :only (html)])
   (:import [org.eclipse.swt SWT SWTException]
            [org.eclipse.swt.widgets Display Shell]
            [org.eclipse.swt.layout FillLayout]
            [org.eclipse.swt.browser Browser TitleListener BrowserFunction])
   (:require [clojure.string :as string]
             [clojure.walk :as walk]
-            [cljs.compiler :as compiler]
-            [hiccup.core])
+            [cljs.compiler :as compiler])
   (:gen-class))
 
 (def ^:dynamic *use-browser* :webkit)
@@ -127,11 +127,8 @@
      symbol?
      (constantly add-dot?)) (symbol (str "." x))
      keyword? (name x)
-     vector? (apply print-str (map jq-expand x))
+     vector? (html x)
      x))
-
-(defmacro dom [dom]
-  `(hiccup.core/html ~dom))
 
 (defmacro $ [& expr]
   `(let [env# (zipmap '~(keys &env) ~(vec (keys &env)))
