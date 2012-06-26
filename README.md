@@ -7,7 +7,7 @@ I often find myself coming back to the [SWT Browser](http://www.eclipse.org/swt/
 I'm not sure this approach - apps with embedded browsers as (part of) their UI - is good, but its compelling.
 ClojureScript isn't the real goal, but this area seemed like a good time to explore it a bit closer. Some of the use of it here is likely somewhat idiosyncratic.
 
-In the unlikely event you want to run it, pick your SWT dev platform (see `project.clj`) and run `lein deps`, compile `swtcljs.server` and run `(start)`. You should get a SWT (WebKit) browser running in the same process as your REPL (usually Swank).
+In the unlikely event you want to run it, pick your SWT dev platform (see `project.clj`) and run `lein deps`, compile `lodjur.server` and run `(start)`. You should get a SWT (WebKit) browser running in the same process as your REPL (usually Swank).
 
 The macro `js` evaluates JavaScript strings, while the macro `cljs` evaluates ClojureScript forms:
 
@@ -21,7 +21,7 @@ All different calls currently return JSON for simplicity (not everything in the 
 For distribution OSGi/RCP could reluctantly be brought into the mix, or simply build platform specific uberjars like this:
 
     lein with-profile linux uberjar
-    java -jar target/swtcljs-0.1.0-SNAPSHOT-standalone.jar
+    java -jar target/lodjur-0.1.0-SNAPSHOT-standalone.jar
 
 
 ## Things to Explore
