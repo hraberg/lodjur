@@ -40,6 +40,8 @@ For distribution OSGi/RCP could reluctantly be brought into the mix, or simply b
 
 [Seesaw](https://github.com/daveray/seesaw) Looks nice - if one wants Swing.
 
+[Closeout](https://github.com/davesann/closeout) Clojurescript UI templating and binding
+
 [Elm](http://elm-lang.org/) "Elm is a type-safe, functional reactive language that compiles to HTML, CSS, and JavaScript."
 
 [TodoMVC](https://github.com/addyosmani/todomvc/) "A common learning application for popular JavaScript MV* frameworks"
