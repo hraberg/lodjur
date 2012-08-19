@@ -6,10 +6,10 @@
                  [compojure "1.0.4"]
                  [hiccup "1.0.0"]
                  [ring/ring-jetty-adapter "1.1.1"]]
-  :profiles {:dev {:dependencies [[org.eclipse.swt/org.eclipse.swt.gtk.linux.x86_64 "3.7.2"]]}
-             :linux {:dependencies [[org.eclipse.swt/org.eclipse.swt.gtk.linux.x86_64 "3.7.2"]]}
-             :win32 {:dependencies [[org.eclipse.swt/org.eclipse.swt.win32.win32.x86_64 "3.7.2"]]}
-             :macosx {:dependencies [[org.eclipse.swt/org.eclipse.swt.cocoa.macosx.x86_64 "3.7.2"]]}}
+  :profiles {:dev {:dependencies [[org.eclipse.swt/org.eclipse.swt.gtk.linux.x86_64 "3.8"]]}
+             :linux {:dependencies [[org.eclipse.swt/org.eclipse.swt.gtk.linux.x86_64 "3.8"]]}
+             :win32 {:dependencies [[org.eclipse.swt/org.eclipse.swt.win32.win32.x86_64 "3.8"]]}
+             :macosx {:dependencies [[org.eclipse.swt/org.eclipse.swt.cocoa.macosx.x86_64 "3.8"]]}}
   :min-lein-version "2.0.0"
   :source-paths ["src" "src/clj"]
   :plugins [[lein-swank "1.4.4"]
