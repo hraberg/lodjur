@@ -1,5 +1,24 @@
 ;; Based on https://github.com/raju-bitter/clojure-javafx-example
 ;;      and https://github.com/hraberg/lodjur
+
+;; First, install javafxrt.jar locally as described here:
+;; https://github.com/raju-bitter/clojure-javafx-example
+
+;; lein repl
+;; (require 'lodjur.javafx)
+;; (in-ns 'lodjur.javafx)
+;; (start)
+
+;; An empty WebView will show up, press Ctrl-C in the REPL go get back a prompt:
+
+;; (render [:h2 "Clojure & JavaFX"]) ;; Hiccup
+;; (eval-cljs '(+ 2 2))              ;; ClojureScript
+
+;; (render [:a {:href "#"} "Click me"])
+;; (on :click (first (node-seq body)) println) ;; WebEngine callback from WebKit to Java.
+
+;; See http://docs.oracle.com/javafx/2/api/javafx/scene/web/WebEngine
+
 (ns lodjur.javafx
   (:require [hiccup.core :as h]
             [clojure.string :as s]

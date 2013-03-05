@@ -1,6 +1,6 @@
 # SWT Browser (or JavaFX) & ClojureScript
 
-*Added a similar [JavaFX spike](https://github.com/hraberg/lodjur/blob/master/src/clj/lodjur/javafx.clj) based on https://github.com/raju-bitter/clojure-javafx-example Needs `javafxrt.jar`, see Raju's README.*
+*Added a similar [JavaFX spike](https://github.com/hraberg/lodjur/blob/master/src/clj/lodjur/javafx.clj) based on [clojure-javafx-example](https://github.com/raju-bitter/clojure-javafx-example) Needs `javafxrt.jar`, see Raju's README.*
 
 I often find myself coming back to the [SWT Browser](http://www.eclipse.org/swt/snippets/#browser).
 
