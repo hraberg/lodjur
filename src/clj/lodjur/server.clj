@@ -11,7 +11,8 @@
            [org.eclipse.swt.browser Browser TitleListener BrowserFunction])
   (:require [clojure.string :as string]
             [clojure.walk :as walk]
-            [cljs.compiler :as compiler])
+            [cljs.compiler]
+            [cljs.analyzer])
   (:gen-class))
 
 (def ^:dynamic *use-browser* :webkit)
@@ -87,11 +88,12 @@
       (-> e .getCause .getMessage println))))
 
 (defn compile-cljs [form]
-  (compiler/emit-str (compiler/analyze {:ns (@compiler/namespaces 'cljs.core)
-                                        :uses #{'cljs.core}
-                                        :context :expr
-                                        :locals {}}
-                                       form)))
+  (cljs.compiler/emit-str (cljs.analyzer/analyze
+                           {:ns (@cljs.analyzer/namespaces 'cljs.core)
+                            :uses #{'cljs.core}
+                            :context :expr
+                            :locals {}}
+                           form)))
 
 (create-ns 'lodjur.client)
 (create-ns 'js)
