@@ -60,7 +60,7 @@
 (defn run-now [f]
   (let [latch (promise)]
     (run-later #(deliver latch (f)))
-       @latch))
+    @latch))
 
 (defn render
   ([html] (render body html))
