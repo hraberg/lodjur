@@ -57,6 +57,8 @@ For distribution OSGi/RCP could reluctantly be brought into the mix, or simply b
 
 [JavaFX WebEngine](http://docs.oracle.com/javafx/2/api/javafx/scene/web/WebEngine.html)
 
+[Upshot](https://github.com/daveray/upshot) "A Seesaw style Clojure API for JavaFX."
+
 [Krypton](https://github.com/thoughtworks/krypton) is an experimental (SWT) browser testing tool by ThoughtWorks Studios.
 
 [Himera](https://github.com/fogus/himera) Fogus' "ClojureScript compiler as service" - I started here, but wanted to get a feel for the moving pieces of as its a spike.
