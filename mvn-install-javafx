@@ -1,0 +1,13 @@
+#!/bin/sh -e
+javafx_version=`find $JAVA_HOME -iname javafx.properties | xargs sed s/javafx.runtime.version=//`
+javafx_jar=`find $JAVA_HOME -iname jfxrt.jar`
+artifact_id=javafxrt
+
+mvn install:install-file \
+     -Dfile=$javafx_jar  \
+    -DgroupId=com.oracle -DartifactId=$artifact_id \
+    -Dpackaging=jar \
+    -Dversion=$javafx_version
+
+project_clj=$(sed -r s/com.oracle\\/$artifact_id\ +\".+\"/com.oracle\\/$artifact_id\ \"$javafx_version\"/ project.clj)
+echo "$project_clj" > project.clj

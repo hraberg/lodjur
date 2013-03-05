@@ -6,8 +6,8 @@
                  [compojure "1.0.4"]
                  [hiccup "1.0.2"]
                  [ring/ring-jetty-adapter "1.1.1"]
-                 ;; JavaFX dependency has to be installed manually.
-                 [local.oracle/javafxrt "2.2.0"]]
+                 ;; run ./mvn-install-javafx
+                 [com.oracle/javafxrt "2.2.5"]]
   :profiles {:dev {:dependencies [[org.eclipse.swt/org.eclipse.swt.gtk.linux.x86_64 "3.8"]]}
              :linux {:dependencies [[org.eclipse.swt/org.eclipse.swt.gtk.linux.x86_64 "3.8"]]}
              :win32 {:dependencies [[org.eclipse.swt/org.eclipse.swt.win32.win32.x86_64 "3.8"]]}

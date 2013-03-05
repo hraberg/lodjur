@@ -1,8 +1,8 @@
 ;; Based on https://github.com/raju-bitter/clojure-javafx-example
 ;;      and https://github.com/hraberg/lodjur
 
-;; First, install javafxrt.jar locally as described here:
-;; https://github.com/raju-bitter/clojure-javafx-example
+;; First, install javafxrt.jar in your local maven repo:
+;; ./mvn-install-javafx
 
 ;; lein repl
 ;; (require 'lodjur.javafx)
@@ -15,7 +15,7 @@
 ;; (eval-cljs '(+ 2 2))              ;; ClojureScript
 
 ;; (render [:a {:href "#"} "Click me"])
-;; (on :click (first (node-seq body)) println) ;; WebEngine callback from WebKit to Java.
+;; (on :click (first (node-seq body)) (comp println bean)) ;; WebEngine callback from WebKit to Java.
 
 ;; See http://docs.oracle.com/javafx/2/api/javafx/scene/web/WebEngine
 
