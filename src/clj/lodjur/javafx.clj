@@ -33,16 +33,14 @@
            [javafx.stage Stage]
            [javafx.scene.web WebView]
            [clojure.lang Seqable]
-           [org.w3c.dom Node]
+           [org.w3c.dom Node NodeList]
            [org.w3c.dom.events EventListener Event])
   (:gen-class :extends javafx.application.Application))
 
 (defn node-seq [x]
-  (loop [x (.getFirstChild x)
-         acc []]
-    (if x
-      (recur (.getNextSibling x) (cons x acc))
-      acc)))
+  (let [nodes (if (instance? NodeList x) x (.getChildNodes x))]
+    (for [idx (range (.getLength nodes))]
+      (.item nodes idx))))
 
 (defn compile-cljs [form]
   (cljs.compiler/emit-str (cljs.analyzer/analyze
@@ -79,6 +77,16 @@
                (name event)
                (proxy [EventListener] []
                  (handleEvent [^Event e] (listener e))) false))))
+
+(defn xpath
+  ([path] (xpath body path))
+  ([element path]
+     (let [result (.evaluate document path element nil (short 0) nil)]
+       (take-while identity (repeatedly #(.iterateNext result))))))
+
+;; Doesn't work
+(defn css [selector]
+  (node-seq (.querySelectorAll document selector)))
 
 (defn eval-js
   ([js] (eval-js body js))
